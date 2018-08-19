@@ -1,0 +1,73 @@
+
+ Adding Jasypt encryption notes:
+
+>   StandaradPBEStringEncryptor
+>      uses Jasypt-encryptor-password (which will be set via JVM prop)
+>      is wrapped/used in EncryptableProperties
+>                             which reads from Spring-Boot's application.properties where DB-password is encrypted earlier on commandline using Jasypt
+>
+>   EncryptableProperties.getProperty("spring.datasource.password") will get encrypted-db-pwd, and also decrypt it.
+>
+> The architecture
+
+
+
+================================================================
+
+
+    private String getSecurePassword() throws IOException {
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+
+        encryptor.setPassword(System.getProperty("jasypt.encryptor.password"));
+
+        Properties props = new EncryptableProperties(encryptor);
+
+        props.load(this.getClass().getClassLoader().getResourceAsStream("application.properties"));
+
+        return props.getProperty("spring.datasource.password");
+    }
+
+
+==>  StandardPBEStringEncryptor ....
+
+
+public final class StandardPBEStringEncryptor implements PBEStringCleanablePasswordEncryptor {
+
+
+    public String decrypt(final String encryptedMessage) {
+
+        if (encryptedMessage == null) {
+            return null;
+        }
+
+        // Check initialization
+        if (!isInitialized()) {
+            initialize();
+        }
+
+        try {
+
+            byte[] encryptedMessageBytes = null;
+
+            // Decode input to bytes depending on whether it is a
+            // BASE64-encoded or hexadecimal String
+            if (this.stringOutputTypeBase64) {
+                encryptedMessageBytes =
+                    encryptedMessage.getBytes(ENCRYPTED_MESSAGE_CHARSET);
+                encryptedMessageBytes =
+                    this.base64.decode(encryptedMessageBytes);
+            } else {
+                encryptedMessageBytes =
+                    CommonUtils.fromHexadecimal(encryptedMessage);
+            }
+
+            // Let the byte encyptor decrypt
+            final byte[] message = this.byteEncryptor.decrypt(encryptedMessageBytes);
+
+            // Return the resulting decrypted String, using MESSAGE_CHARSET
+            // as charset to maintain between encryption and decyption
+            // processes.
+            return new String(message, MESSAGE_CHARSET);
+
+
+
