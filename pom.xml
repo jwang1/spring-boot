@@ -105,6 +105,14 @@
 			<version>7.0.52</version>
 		</dependency>
 
+
+		<!-- Spring-boot Integration threw ClassNotFound JAXBException ... -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
