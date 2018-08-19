@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>SpringLocalModels</ID>
+  <OriginalElement>module=notes</OriginalElement>
+  <nodes>
+    <node x="0.0" y="60.0">module=notes</node>
+    <node x="155.5" y="30.0">fileset=notes/NotesApplication</node>
+    <node x="382.0" y="60.0">com.iExpress.notes.notes.NotesApplication</node>
+    <node x="592.0" y="0.0">org.springframework.boot.autoconfigure.SpringBootApplication</node>
+    <node x="628.5" y="60.0">org.springframework.boot.autoconfigure.domain.EntityScan</node>
+    <node x="615.0" y="120.0">com.iExpress.notes.notes.config.AuditingConfig</node>
+    <node x="835.0" y="120.0">org.springframework.data.jpa.repository.config.EnableJpaAuditing</node>
+    <node x="139.0" y="90.0">fileset=notes/NotesApplication MVC</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="module=notes" target="fileset=notes/NotesApplication MVC">
+      <point x="29.5" y="5.0" />
+      <point x="-81.5" y="-0.0" />
+    </edge>
+    <edge source="com.iExpress.notes.notes.NotesApplication" target="org.springframework.boot.autoconfigure.domain.EntityScan">
+      <point x="65.0" y="-0.0" />
+      <point x="-45.0" y="-0.0" />
+    </edge>
+    <edge source="module=notes" target="fileset=notes/NotesApplication">
+      <point x="29.5" y="-5.0" />
+      <point x="139.0" y="40.0" />
+      <point x="-65.0" y="-0.0" />
+    </edge>
+    <edge source="com.iExpress.notes.notes.NotesApplication" target="com.iExpress.notes.notes.config.AuditingConfig">
+      <point x="65.0" y="6.666666666666671" />
+      <point x="592.0" y="130.0" />
+      <point x="-58.5" y="-0.0" />
+    </edge>
+    <edge source="com.iExpress.notes.notes.config.AuditingConfig" target="org.springframework.data.jpa.repository.config.EnableJpaAuditing">
+      <point x="58.5" y="-0.0" />
+      <point x="-69.5" y="-0.0" />
+    </edge>
+    <edge source="com.iExpress.notes.notes.NotesApplication" target="org.springframework.boot.autoconfigure.SpringBootApplication">
+      <point x="65.0" y="-6.666666666666664" />
+      <point x="-81.5" y="-0.0" />
+    </edge>
+    <edge source="fileset=notes/NotesApplication" target="com.iExpress.notes.notes.NotesApplication">
+      <point x="65.0" y="-0.0" />
+      <point x="302.0" y="40.0" />
+      <point x="-65.0" y="-5.0" />
+    </edge>
+    <edge source="fileset=notes/NotesApplication MVC" target="com.iExpress.notes.notes.NotesApplication">
+      <point x="81.5" y="-0.0" />
+      <point x="-65.0" y="5.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8340040241448692" x="487.0" y="70.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Show filesets as groups</Category>
+  </Categories>
+</Diagram>
+
