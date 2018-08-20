@@ -1,4 +1,4 @@
-package com.iExpress.notes.notes.config;
+package com.iExpress.notes.notes.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iExpress.notes.notes.model.User;

@@ -1,4 +1,4 @@
-package com.iExpress.notes.notes.config;
+package com.iExpress.notes.notes.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
