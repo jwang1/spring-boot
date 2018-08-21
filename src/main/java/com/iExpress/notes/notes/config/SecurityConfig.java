@@ -1,5 +1,8 @@
 package com.iExpress.notes.notes.config;
 
+import com.iExpress.notes.notes.security.CustomerUserDetailsService;
+import com.iExpress.notes.notes.security.JwtAuthenticationEntryPoint;
+import com.iExpress.notes.notes.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
