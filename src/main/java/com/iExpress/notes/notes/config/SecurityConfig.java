@@ -50,6 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors()
@@ -82,10 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add custom JWT security filter
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    private PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

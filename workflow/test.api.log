@@ -1,0 +1,71 @@
+
+1. test /api/auth/signup POST api with JSON input
+
+
+    Request:
+
+    curl -H "Content-Type: application/json" --request POST --data '{"username":"test", "name":"test", "email":"test@gmail.com", "password":"secret"}' http://localhost:8080/api/auth/signup
+
+    Response:
+
+    {"success":true,"message":"User registered successfully"}
+
+
+    Check DB:
+
+    select * from users;
+    +----+---------------------+---------------------+----------------+------+--------------------------------------------------------------+-----------+
+    | id | created_at          | updated_at          | email          | name | password                                                     | user_name |
+    +----+---------------------+---------------------+----------------+------+--------------------------------------------------------------+-----------+
+    |  1 | 2018-08-21 22:38:13 | 2018-08-21 22:38:13 | test@gmail.com | test | $2a$10$aprDO0HuUS9hXqAmWkfqp.w7m04m1eZd9KSBIRrLQ2a/mZL7zrv/W | test      |
+    +----+---------------------+---------------------+----------------+------+--------------------------------------------------------------+-----------+
+    1 row in set (0.07 sec)
+
+
+2. test /api/auth/signin
+
+    curl -X POST -H "Content-Type: application/json" --data '{"usernameOrEmail":"test", "password":"secret"}' http://localhost:8080/api/auth/signin
+
+    got stackoverflow :
+
+    at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:199) ~[spring-security-core-5.1.0.M2.jar:5.1.0.M2]
+    	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter$AuthenticationManagerDelegator.authenticate(WebSecurityConfigurerAdapter.java:502) ~[spring-security-config-5.1.0.M2.jar:5.1.0.M2]
+
+
+
+        @PostMapping("/signin")
+        public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsernameOrEmail(),
+                            loginRequest.getPassword()
+                    )
+            );
+
+
+
+        From ProviderManager.java
+
+        		if (result == null && parent != null) {
+        			// Allow the parent to try.
+        			try {
+        				result = parent.authenticate(authentication);
+        			}
+        			catch (ProviderNotFoundException e) {
+        				// ignore as we will throw below if no other exception occurred prior to
+        				// calling parent and the parent
+        				// may throw ProviderNotFound even though a provider in the child already
+        				// handled the request
+        			}
+        			catch (AuthenticationException e) {
+        				lastException = e;
+        			}
+        		}
+
+
+
+
+
+
+
+
