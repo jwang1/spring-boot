@@ -1,10 +1,13 @@
 
+*** A good curl blog site : https://gist.github.com/subfuzion/08c5d85437d5d4f00e58
+
+
 1. test /api/auth/signup POST api with JSON input
 
 
     Request:
 
-    curl -H "Content-Type: application/json" --request POST --data '{"username":"test", "name":"test", "email":"test@gmail.com", "password":"secret"}' http://localhost:8080/api/auth/signup
+    curl -H "Content-Type: application/json" --request POST --data '{"username":"test", "name":"test", "email":"test@gmail.com", "password":"****(masked)"}' http://localhost:8080/api/auth/signup
 
     Response:
 
@@ -26,7 +29,7 @@
 
     curl -X POST -H "Content-Type: application/json" --data '{"usernameOrEmail":"test", "password":"secret"}' http://localhost:8080/api/auth/signin
 
-    got stackoverflow :
+    got stackoverflow :  (<== it was a wrongly overridden method in SecurityConfig -- referred in the last commit)
 
     at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:199) ~[spring-security-core-5.1.0.M2.jar:5.1.0.M2]
     	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter$AuthenticationManagerDelegator.authenticate(WebSecurityConfigurerAdapter.java:502) ~[spring-security-config-5.1.0.M2.jar:5.1.0.M2]
@@ -64,6 +67,15 @@
 
 
 
+
+
+3. singin api/endpoint test, after correcting the above issue (overrode a wrong method in SecurityConfig class)
+
+    curl -X POST -H "Content-Type: application/json"  -d '{"usernameOrEmail": "test", "password": "****(masked)"}' http://localhost:8080/api/auth/signin
+
+        --> Got the following result
+
+        {"accessToken":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MTQ2ODg3LCJleHAiOjE1MzU3NTE2ODd9.c0PsSqf0-noz1Xw856cso_QrP2h0PHoZY_Ile3zzflcG-GZSlTBi8OoJRljFTVOzVKx4lFnT2pEO7hbkP_FnZQ","tokenType":"Bearer"}
 
 
 
