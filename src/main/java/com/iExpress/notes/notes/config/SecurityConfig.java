@@ -46,7 +46,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
-    public AuthenticationManager authenticationManager() throws Exception {
+    //
+    // Was having typo, overrode the wrong method ...
+    //
+    // public AuthenticationManager authenticationManager() throws Exception {
+    //
+    // ^ caused 2018-08-24 17:12:37.255 ERROR 17708 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]
+    // : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+    // [Handler dispatch failed; nested exception is java.lang.StackOverflowError] with root cause
+    //
+    // stackoverflow.com/questions/42729981
+    //
+    // it will be nice NOT to have so closed override methods ...
+    //
+    // AuthenticationManager authenticationManagerBean()  vs   AuthenticationManager authenticationManager()
+    //
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
