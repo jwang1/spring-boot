@@ -80,4 +80,44 @@
 
 
 
+4. /api/user
+
+  4.1 checkUsernameAvailability
+
+    curl -X GET 'http://localhost:8080/api/user/checkUsernameAvailability?username=test'
+
+        {"available":false}
+
+
+    curl -X GET 'http://localhost:8080/api/user/checkUsernameAvailability?username=test1'
+
+        {"available":true}
+
+
+
+  4.2 users
+
+    curl -X GET 'http://localhost:8080/api/user/users'
+
+        {"timestamp":"2018-08-25T11:32:51.696-0500","status":401,"error":"Unauthorized","message":"You're not authorized to access this resource.","path":"/api/user/users"}
+
+
+
+5. /api/polls
+
+  5.1  create poll
+
+    curl -X POST -H "Content-Type: application/json" -d '{"question":"Do you like this site?", "choices":["Yes", "No"], "pollLength": {"days": 1, "hours": 2}}' http://localhost:8080/api/polls; echo
+
+        {"timestamp":"2018-08-25T11:46:20.599-0500","status":401,"error":"Unauthorized","message":"You're not authorized to access this resource.","path":"/api/polls"}
+
+
+
+    Still need to find the right way to put in the JWT in curl POST
+
+     curl -X POST -H "Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MjE1NjU4LCJleHAiOjE1MzU4MjA0NTh9.y07-Rzx1W2GhI1vfyWMH0eanBwD3kSlPKFIhharDXbUUl8e__8DP1oGOG_aOLk3RL5gRF0sS1ncpbc4ScriNTA" -H "Content-Type: application/json" -d '{"question":"Do you like this site?", "choices":["Yes", "No"], "pollLength": {"days": 1, "hours": 2}}' http://localhost:8080/api/polls; echo
+
+        {"timestamp":"2018-08-25T11:54:04.573-0500","status":401,"error":"Unauthorized","message":"You're not authorized to access this resource.","path":"/api/polls"}
+
+
 
