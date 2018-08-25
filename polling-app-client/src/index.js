@@ -5,10 +5,11 @@ import App from './app/App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+// Note the , after Router closing tag; otherwise, raising errors:
 ReactDOM.render(
     <Router>
         <App/>
-    </Router>
+    </Router>,
 
     document.getElementById('root')
 );
