@@ -1,6 +1,17 @@
 
 *** A good curl blog site : https://gist.github.com/subfuzion/08c5d85437d5d4f00e58
 
+                            http://www.svlada.com/jwt-token-authentication-with-spring-boot/   (curl with JWT)
+
+
+WORKING API tests with JWT toketns
+
+      curl -X POST -H "Content-Type: application/json" -d '{"usernameOrEmail":"test", "password":"secret"}' http://localhost:8080/api/auth/signin ; echo
+
+      curl -X GET -H "Authentication: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MjE3MzQ3LCJleHAiOjE1MzU4MjIxNDd9.1E12w_NkTL3uOQvkg4Y_Hl1yLA1oC352_m9MtsPz1GYf8hGdlSFR9G3dB2uC8Ym9EU4E0_a6ZLgQ91PB-nmWhg" "http://localhost:8080/api/user/me" ; echo
+
+
+
 
 1. test /api/auth/signup POST api with JSON input
 
@@ -119,5 +130,35 @@
 
         {"timestamp":"2018-08-25T11:54:04.573-0500","status":401,"error":"Unauthorized","message":"You're not authorized to access this resource.","path":"/api/polls"}
 
+
+NOTES:
+        http://www.svlada.com/jwt-token-authentication-with-spring-boot/
+
+
+     curl -X POST -H "X-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MjE2NDY0LCJleHAiOjE1MzU4MjEyNjR9.uqwpv91zvIIxVTS9IvnSz1zUKHXymyp069xjDZnsrs5CMkvZSEKUHk11UZ3JSiGFb-PcLAgwY045KGQAAIuR-A" -H "Application-Content: application/json" -d '{"question":"Do you like this site?", "choices":["Yes", "No"], "pollLength": {"days": 1, "hours": 2}}' http://localhost:8080/api/polls; echo
+
+
+        {"timestamp":"2018-08-25T12:01:39.734-0500","status":401,"error":"Unauthorized","message":"You're not authorized to access this resource.","path":"/api/polls"}
+
+
+
+
+
+ ***  It turned out;  should NOT use Authorization (as the above),  but Authentication which is used in
+        JwtAuthenticationFilter::getJwtFromRequest()
+
+
+
+      curl -X GET -H "Authentication: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MjE3MzQ3LCJleHAiOjE1MzU4MjIxNDd9.1E12w_NkTL3uOQvkg4Y_Hl1yLA1oC352_m9MtsPz1GYf8hGdlSFR9G3dB2uC8Ym9EU4E0_a6ZLgQ91PB-nmWhg" "http://localhost:8080/api/user/me" ; echo
+
+        {"id":1,"username":"test","name":"test"}
+
+
+
+      NOTE:  the above JWT was retrieved via signin endpoint:
+
+      curl -X POST -H "Content-Type: application/json" -d '{"usernameOrEmail":"test", "password":"secret"}' http://localhost:8080/api/auth/signin ; echo
+
+            {"accessToken":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTM1MjE3ODE0LCJleHAiOjE1MzU4MjI2MTR9.M48PcplTgRt3pRpBCT6KKAVM72rYUaWAC3SnLks9_VlnqNe_LiMg--I0uh6Siw5gVYkuldAa3q19KSa5U8oiCg","tokenType":"Bearer"}
 
 
